@@ -1,0 +1,13 @@
+<div class="filter-family">
+    <div class="filter-select" data-resource-type="<?php echo $filterResourceType; ?>" data-resource-template-id="<?php echo $resourceTemplateId; ?>">
+        <h4><?php echo $heading; ?></h4>
+        <select <?php echo (isset($template)) ? '' : 'class="chosen-select"'; ?> name="resource-template-filter" data-placeholder="Select a filter">
+          <option value=""></option>
+          <?php foreach ($filterResources as $filterResource): ?>
+          <option value="<?php echo $filterResource->id(); ?>">
+              <?php echo $filterResource->title(); ?>
+          </option>
+          <?php endforeach; ?>
+        </select>
+    </div>
+</div>
