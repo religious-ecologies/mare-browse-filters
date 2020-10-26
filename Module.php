@@ -27,6 +27,11 @@ class Module extends AbstractModule {
             'view.browse.before',
             [$this, 'addBrowseFilters']
         );
+        $sharedEventManager->attach(
+            'Omeka\Controller\Site\Page',
+            'view.layout',
+            [$this, 'addLocationDenominationJs']
+        );
     }
 
     public function buildInQuery(Event $event) {
@@ -75,8 +80,8 @@ class Module extends AbstractModule {
           $resourceTemplateIds[$resourceTemplate->label()] = $resourceTemplate->id();
         }
 
-        $denominationFamilies = $api->search('items', ['resource_template_id' => $resourceTemplateIds['Denomination Family']])->getContent();
-        $denominationProperty = $api->search('properties', ['term' => 'mare:denominationFamily', 'limit' => 1])->getContent();
+        $denominationFamilies = $api->search('items', ['resource_template_id' => $resourceTemplateIds['ARDA Religious Group Family']])->getContent();
+        $denominationProperty = $api->search('properties', ['term' => 'mare:ardaReligiousGroupFamily', 'limit' => 1])->getContent();
         $denominationFamilyPropertyId = $denominationProperty{0}->id();
 
         $stateTerritories = $api->search('items', ['resource_template_id' => $resourceTemplateIds['State/Territory']])->getContent();
@@ -112,6 +117,11 @@ class Module extends AbstractModule {
           'countyPropertyId' => $countyPropertyId,
           'areCurrentFilters' => $areCurrentFilters,
         ]);
+    }
+    
+    public function addLocationDenominationJs(Event $event) {
+        $view = $event->getTarget();
+        $view->headScript()->appendFile($view->assetUrl('js/are-remember-location.js', 'MareBrowseFilters'));        
     }
 }
 ?>
