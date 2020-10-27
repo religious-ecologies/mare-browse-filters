@@ -1,5 +1,5 @@
 (function($) {
-  var baseDomain = 'http://localhost/religious-ecologies';
+  var baseDomain = 'https://omeka.religiousecologies.org';
   var basePath = '/mare/partial/';
   var baseUrl = baseDomain + basePath;
   var denominationFamilyFilterUrl = baseUrl + 'denomination-families-nav';
