@@ -106,7 +106,7 @@
             var family = urlParams.get('denominationFamily') || urlParams.get('stateTerritory');
             if (family) {
                 return expandFamilyTree(family).then(function() {
-                  var filter = urlParams.get('counties') || urlParams.get('denomination');
+                  var filter = urlParams.get('counties') || urlParams.get('denominations');
                   if (filter) {
                       $('.are-filter[data-item-id="' + filter + '"] a').click();
                   }
