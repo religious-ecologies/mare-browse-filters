@@ -1,6 +1,6 @@
 (function($) {
   var baseDomain = 'https://omeka.religiousecologies.org';
-  var basePath = '/mare/partial/';
+  var basePath = '/s/census-1926/mare/partial/';
   var baseUrl = baseDomain + basePath;
   var denominationFamilyFilterUrl = baseUrl + 'denomination-families-nav';
   var denominationFilterUrl = baseUrl + 'denominations-nav?denomination-family-id=';
@@ -54,7 +54,7 @@
             });
         });
         
-        filteredContentContainer.on('click', '.schedule-list .pagination a', function(e) {
+        filteredContentContainer.on('click', '.schedule-list .omeka-pagination a', function(e) {
           e.preventDefault();
           $.get($(this).attr('href'), function(data) {
               $('.schedule-list').replaceWith($(data));
