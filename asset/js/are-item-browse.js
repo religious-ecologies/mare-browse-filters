@@ -1,5 +1,5 @@
 (function($) {
-    var baseDomain = 'http://omeka.religiousecologies.org/api/';
+    var baseDomain = 'https://omeka.religiousecologies.org/api/';
         
     $(document).ready(function() {        
         var filterSubmitButton = $('.filter-submit');
