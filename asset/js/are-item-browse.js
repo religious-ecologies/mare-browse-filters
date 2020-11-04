@@ -81,7 +81,7 @@
         var apiSearchUrl = baseDomain + 'items?' + filterParam + '&per_page=1000&resource_template_id[]=' + resourceTemplateId;
         console.log(apiSearchUrl);
         newFilterSelect.addClass('child');
-        newFilterSelect.find('h4').text(heading);
+        newFilterSelect.find('legend').text(heading);
         newFilterSelect.attr('data-updated', 'true');
         $.get(apiSearchUrl, function(data) {
             $.each(data, function() {
