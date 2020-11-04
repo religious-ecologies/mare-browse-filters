@@ -1,6 +1,6 @@
 (function($) {
-  var baseDomain = 'https://omeka.religiousecologies.org';
-  var basePath = '/s/census-1926/mare/partial/';
+  var baseDomain = '//localhost';
+  var basePath = '/religious-ecologies/s/census-1926/mare/partial/';
   var baseUrl = baseDomain + basePath;
   var denominationFamilyFilterUrl = baseUrl + 'denomination-families-nav';
   var denominationFilterUrl = baseUrl + 'denominations-nav?denomination-family-id=';
