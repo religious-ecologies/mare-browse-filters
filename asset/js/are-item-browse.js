@@ -37,7 +37,7 @@
         
         $(document).on('click', '.clear-filter', function() {
             var selectedFilters = $('#selected-filters');
-            var filterLink = $(this).prev('a');
+            var filterLink = $(this).prev('.filter-link');
             var filterId = filterLink.data('filter-id');
             var filterResourceType = filterLink.data('resource-type');
             var filterContainer = $('.filter-select[data-resource-type="' + filterResourceType + '"]');
