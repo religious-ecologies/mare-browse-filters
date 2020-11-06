@@ -69,9 +69,9 @@
           buildFilterUrl($(this));
         });
         
-        window.onpopstate = function(event) {
+        window.addEventListener('popstate', function(event) {
           openCurrentView();
-        };
+        });
 
         var createFilter = function(filterLi,filterId) {
           var filterUrl = areFilterUrl + filterId;
@@ -146,7 +146,7 @@
           }
           filterFamilyString = '?' + formatNavParam(filterFamilyType) + '=' + filterFamilyId;
           filterUrl = filterFamilyString + filterString;
-          history.pushState({filterId: filterId}, '', filterUrl);
+          history.replaceState({filterId: filterId}, '', filterUrl);
         }
         
       }
