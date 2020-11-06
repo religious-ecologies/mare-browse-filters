@@ -68,6 +68,10 @@
           e.preventDefault();
           buildFilterUrl($(this));
         });
+        
+        window.onpopstate = function(event) {
+          openCurrentView();
+        };
 
         var createFilter = function(filterLi,filterId) {
           var filterUrl = areFilterUrl + filterId;
@@ -91,14 +95,16 @@
             $('.collapse').removeClass('collapse');
             var areFilter = $('.are-family[data-item-id=' + filterId + ']');
             areFilter.toggleClass('collapse');
+            var defer = $.Deferred();
             if (!areFilter.hasClass('populated')) {
-              var defer = $.Deferred();
               areFilter.addClass('populated');
               createFilter(areFilter, areFilter.data('item-id')).then(function() {
                   defer.resolve();
               });
-              return defer.promise();
+            } else {
+              defer.resolve();
             }
+            return defer.promise();
         };
                 
         var openCurrentView = function() {
@@ -140,9 +146,9 @@
           }
           filterFamilyString = '?' + formatNavParam(filterFamilyType) + '=' + filterFamilyId;
           filterUrl = filterFamilyString + filterString;
-          history.replaceState({filterId: filterId}, '', filterUrl);
+          history.pushState({filterId: filterId}, '', filterUrl);
         }
-
+        
       }
     }); 
 })(jQuery)
