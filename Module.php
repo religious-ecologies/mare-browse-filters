@@ -108,8 +108,8 @@ class Module extends AbstractModule {
             }
         }
         
-        $view->headLink()->prependStylesheet($view->assetUrl('vendor/chosen-js/chosen.css', 'Omeka'));
-        $view->headScript()->prependFile($view->assetUrl('vendor/chosen-js/chosen.jquery.js', 'Omeka'));
+        $view->headLink()->prependStylesheet($view->assetUrl('vendor/chosen-js/chosen.min.css', 'Omeka'));
+        $view->headScript()->prependFile($view->assetUrl('vendor/chosen-js/chosen.jquery.min.js', 'Omeka'));
         $view->headScript()->prependFile($view->assetUrl('js/chosen-options.js', 'Omeka'));
         $view->headScript()->prependFile($view->assetUrl('js/are-item-browse.js', 'MareBrowseFilters'));
         echo $view->partial('common/are-filters', [
