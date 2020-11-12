@@ -73,6 +73,11 @@ class Module extends AbstractModule {
 
         $view = $event->getTarget();
         $api = $view->api();
+
+        if (isset($view->itemSet)) {
+          return;
+        }
+
         $resourceTemplates = $api->search('resource_templates')->getContent();
         array_shift($resourceTemplates);
         $resourceTemplateIds = [];
