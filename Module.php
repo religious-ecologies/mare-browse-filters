@@ -79,8 +79,12 @@ class Module extends AbstractModule {
         }
 
         $resourceTemplates = $api->search('resource_templates')->getContent();
+        $itemSetSearch = $api->search('item_sets', [
+          'search' => 'States/Territories, 1926',
+        ])->getContent();
         array_shift($resourceTemplates);
         $resourceTemplateIds = [];
+        $stateTerritoryItemSetId = $itemSetSearch[0]->id();
         foreach($resourceTemplates as $resourceTemplate) {
           $resourceTemplateIds[$resourceTemplate->label()] = $resourceTemplate->id();
         }
@@ -89,7 +93,7 @@ class Module extends AbstractModule {
         $denominationProperty = $api->search('properties', ['term' => 'mare:ardaReligiousGroupFamily', 'limit' => 1])->getContent();
         $denominationFamilyPropertyId = $denominationProperty{0}->id();
 
-        $stateTerritories = $api->search('items', ['resource_template_id' => $resourceTemplateIds['State/Territory']])->getContent();
+        $stateTerritories = $api->search('items', ['item_set_id' => $stateTerritoryItemSetId])->getContent();
         $stateTerritoriesProperty = $api->search('properties', ['term' => 'mare:stateTerritory', 'limit' => 1])->getContent();
         $stateTerritoriesPropertyId = $stateTerritoriesProperty{0}->id();
 
@@ -121,6 +125,7 @@ class Module extends AbstractModule {
           'singleDenominationPropertyId' => $singleDenominationPropertyId,
           'countyPropertyId' => $countyPropertyId,
           'areCurrentFilters' => $areCurrentFilters,
+          'stateTerritoryItemSetId' => $stateTerritoryItemSetId
         ]);
     }
     
