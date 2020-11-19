@@ -92,7 +92,6 @@
         }
 
         var expandFamilyTree = function(filterId) {
-            $('.collapse').removeClass('collapse');
             var areFilter = $('.are-family[data-item-id=' + filterId + ']');
             areFilter.toggleClass('collapse');
             var defer = $.Deferred();
