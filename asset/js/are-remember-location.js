@@ -56,12 +56,17 @@
         
         filteredContentContainer.on('click', '.schedule-list .omeka-pagination a', function(e) {
           e.preventDefault();
-          $.get($(this).attr('href'), function(data) {
-              $('.schedule-list').replaceWith($(data));
-          })
-            .done(function() {
-              setupScheduleLinks();
-            });
+          paginateScheduleList($(this).attr('href'));
+        });
+        
+        filteredContentContainer.on('keydown', '.schedule-list .omeka-pagination input[type="text"]', function(e) {
+          if (e.keyCode == 13) {
+            e.preventDefault();
+            var textInput = $(this);
+            var currentUrl = $('.omeka-pagination a').first().attr('href');
+            currentUrl = currentUrl.split('page=')[0] + 'page=' + textInput.val();
+            paginateScheduleList(currentUrl);
+          }
         });
 
         $(document).on('click', '.are-filter-link', function(e) {
@@ -82,6 +87,15 @@
               $('#are-filters li li').addClass('are-filter').wrapInner('<a href="#" class="are-filter-link"></a>');
             });
         };
+        
+        var paginateScheduleList = function(formUrl) {
+          $.get(formUrl, function(data) {
+            $('.schedule-list').replaceWith($(data));
+          })
+          .done(function() {
+            setupScheduleLinks();
+          });
+        }
         
         var setupScheduleLinks = function() {
           $('.schedule-list .pagination a, a.schedule-link').each(function() {
