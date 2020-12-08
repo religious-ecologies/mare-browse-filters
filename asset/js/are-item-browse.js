@@ -3,6 +3,9 @@
         
     $(document).ready(function() {        
         var filterSubmitButton = $('.filter-submit');
+        filterSubmitButton.click(function() {
+          $('[name="resource-template-filter"]').prop('disabled', true);
+        });
         // Chosen select population, taken from Omeka's admin.js
       
         $('.chosen-select').chosen(chosenOptions);
@@ -79,7 +82,6 @@
         newFilterSelectInput.addClass('chosen-select').chosen(chosenOptions);
         
         var apiSearchUrl = baseDomain + 'items?' + filterParam + '&per_page=1000&resource_template_id[]=' + resourceTemplateId;
-        console.log(apiSearchUrl);
         newFilterSelect.addClass('child');
         newFilterSelect.find('legend').text(heading);
         newFilterSelect.attr('data-updated', 'true');
@@ -154,8 +156,6 @@
         if (filterOption.length == 0) {
           $.get(baseDomain + 'items/' + value, function(data) {
             var filterLabel = data['o:title'];
-            var parentFilterLabel = data[parentResourceType][0]['display_title'];
-            filterId = data[parentResourceType][0]['value_resource_id'];
             addSelectedFilter(propertiesIndex, value, resourceType, filterLabel);
           });
         }
