@@ -91,16 +91,16 @@ class Module extends AbstractModule {
 
         $denominationFamilies = $api->search('items', ['resource_template_id' => $resourceTemplateIds['ARDA Religious Group Family']])->getContent();
         $denominationProperty = $api->search('properties', ['term' => 'mare:ardaReligiousGroupFamily', 'limit' => 1])->getContent();
-        $denominationFamilyPropertyId = $denominationProperty{0}->id();
+        $denominationFamilyPropertyId = $denominationProperty[0]->id();
 
         $stateTerritories = $api->search('items', ['item_set_id' => $stateTerritoryItemSetId])->getContent();
         $stateTerritoriesProperty = $api->search('properties', ['term' => 'mare:stateTerritory', 'limit' => 1])->getContent();
-        $stateTerritoriesPropertyId = $stateTerritoriesProperty{0}->id();
+        $stateTerritoriesPropertyId = $stateTerritoriesProperty[0]->id();
 
         $singleDenominationProperty = $api->search('properties', ['term' => 'mare:denomination'])->getContent(); 
         $countyProperty = $api->search('properties', ['term' => 'mare:county'])->getContent();
-        $singleDenominationPropertyId = $singleDenominationProperty{0}->id();
-        $countyPropertyId = $countyProperty{0}->id();
+        $singleDenominationPropertyId = $singleDenominationProperty[0]->id();
+        $countyPropertyId = $countyProperty[0]->id();
 
         $query = $view->params()->fromQuery();
         $arePropertyIds = [$denominationFamilyPropertyId, $stateTerritoriesPropertyId, $singleDenominationPropertyId, $countyPropertyId];
