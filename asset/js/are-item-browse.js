@@ -64,6 +64,8 @@
                 applyActiveFilters(filterData);
             }
         });
+        
+        warnIfUnsaved();
     });
     
     var populateChildFilter = function(resourceType, parentResourceType, heading, filterId, resourceTemplateId) {
@@ -162,4 +164,57 @@
       });
     };
     
+    var warnIfUnsaved = function() {
+      var setSubmittedFlag = function () {
+         $(this).data('omekaFormSubmitted', true);
+      };
+      
+      var setOriginalData = function () {
+         $(this).data('omekaFormOriginalData', $(this).serialize());
+      };
+      
+      var formsToCheck = $('form[method=GET]:not(.disable-unsaved-warning)');
+      formsToCheck.on('o:form-loaded', setOriginalData);
+      formsToCheck.each(function () {
+         var form = $(this);
+         form.trigger('o:form-loaded');
+         form.submit(setSubmittedFlag);
+      });
+      
+      $(window).on('beforeunload', function() {
+         var preventNav = false;
+         formsToCheck.each(function () {
+             var form = $(this);
+             console.log(form);
+             var originalData = form.data('omekaFormOriginalData');
+             var hasFile = false;
+             console.log(form);
+             if (form.data('omekaFormSubmitted')) {
+                 return;
+             }
+      
+             form.trigger('o:before-form-unload');
+      
+             form.find('input[type=file]').each(function () {
+                 if (this.files.length) {
+                     hasFile = true;
+                     return false;
+                 }
+             });
+      
+             if (form.data('omekaFormDirty')
+                 || (originalData && originalData !== form.serialize())
+                 || hasFile
+             ) {
+                 preventNav = true;
+                 return false;
+             }
+         });
+      
+         if (preventNav) {
+             return 'You have unsaved changes.';
+         }
+      });
+    }
+
 })(jQuery)
