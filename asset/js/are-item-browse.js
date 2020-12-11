@@ -54,6 +54,7 @@
                 selectedFilters.addClass('empty');
               }
             }
+            markDirty($('#are-filters form'));
         });
         
         // Check for active filters
@@ -164,6 +165,10 @@
       });
     };
     
+    var markDirty = function(form) {
+      $(form).data('omekaFormDirty', true);
+    };
+    
     var warnIfUnsaved = function() {
       var setSubmittedFlag = function () {
          $(this).data('omekaFormSubmitted', true);
@@ -185,10 +190,8 @@
          var preventNav = false;
          formsToCheck.each(function () {
              var form = $(this);
-             console.log(form);
              var originalData = form.data('omekaFormOriginalData');
              var hasFile = false;
-             console.log(form);
              if (form.data('omekaFormSubmitted')) {
                  return;
              }
